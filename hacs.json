@@ -1,6 +1,5 @@
 {
   "name": "Grasplet",
   "render_readme": true,
-  "country": ["GB"],
-  "icon": "icon.png"
+  "country": ["GB"]
 }
