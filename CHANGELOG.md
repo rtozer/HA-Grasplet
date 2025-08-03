@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [1.0.1] - 2025-01-01
+
+### Added
+- Data usage percentage sensor for visual gauges and monitoring
+- Lovelace card examples for dashboard creation
+- HACS repository icon for better store display
+
+### Changed
+- Enhanced HACS support with proper configuration
+- Improved data visualization options
+
 ## [1.0.0] - 2025-01-01
 
 ### Added

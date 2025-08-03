@@ -46,6 +46,7 @@ async def async_setup_entry(
                 GraspletExpiryDateSensor(coordinator, sim_data, sim_id, sim_name),
                 GraspletDataLimitSensor(coordinator, sim_data, sim_id, sim_name),
                 GraspletDataRemainingSensor(coordinator, sim_data, sim_id, sim_name),
+                GraspletDataUsagePercentageSensor(coordinator, sim_data, sim_id, sim_name),
                 GraspletAvailabilityZoneSensor(coordinator, sim_data, sim_id, sim_name),
             ])
     
@@ -245,4 +246,41 @@ class GraspletAvailabilityZoneSensor(GraspletSensorBase):
         plan_data = self.plan_data
         if plan_data and "usage" in plan_data:
             return plan_data["usage"].get("availabilityZone")
+        return None
+
+
+class GraspletDataUsagePercentageSensor(GraspletSensorBase):
+    """Data usage percentage sensor."""
+    
+    def __init__(self, coordinator, sim_data, sim_id, sim_name):
+        """Initialize the data usage percentage sensor."""
+        super().__init__(coordinator, sim_data, sim_id, sim_name)
+        self._attr_name = f"{sim_name} Data Usage %"
+        self._attr_unique_id = f"{sim_id}_data_usage_percentage"
+        self._attr_native_unit_of_measurement = "%"
+        self._attr_state_class = SensorStateClass.MEASUREMENT
+        self._attr_icon = "mdi:gauge"
+        self._attr_suggested_display_precision = 1
+
+    @property
+    def native_value(self) -> float | None:
+        """Return the data usage percentage."""
+        plan_data = self.plan_data
+        if plan_data and "plan" in plan_data and "usage" in plan_data:
+            data_limit = plan_data["plan"].get("dataLimit")
+            data_used = plan_data["usage"].get("dataUsed")
+            data_unit = plan_data["usage"].get("dataUnit", "GB")
+            
+            if data_limit is not None and data_used is not None:
+                # Normalize both to GB
+                limit_gb = float(data_limit)
+                used_gb = float(data_used)
+                
+                if data_unit.upper() == "MB":
+                    used_gb = used_gb / 1024
+                elif data_unit.upper() == "KB":
+                    used_gb = used_gb / (1024 * 1024)
+                
+                if limit_gb > 0:
+                    return min(100.0, (used_gb / limit_gb) * 100)
         return None
