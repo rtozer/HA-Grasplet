@@ -1,0 +1,35 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Setup Grasplet Integration",
+        "description": "Enter your Grasplet account credentials",
+        "data": {
+          "username": "Username (Email)",
+          "password": "Password",
+          "poll_interval": "Poll Interval (hours)"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Grasplet Integration",
+        "description": "Update your Grasplet account credentials",
+        "data": {
+          "username": "Username (Email)",
+          "password": "Password",
+          "poll_interval": "Poll Interval (hours)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to Grasplet API",
+      "invalid_auth": "Invalid authentication credentials",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "Account is already configured",
+      "cannot_connect": "Failed to connect to Grasplet API",
+      "invalid_auth": "Invalid authentication credentials",
+      "reconfigure_successful": "Configuration updated successfully"
+    }
+  }
+}

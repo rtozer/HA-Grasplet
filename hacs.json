@@ -1,0 +1,11 @@
+{
+  "name": "Grasplet",
+  "content_in_root": false,
+  "zip_release": true,
+  "filename": "grasplet.zip",
+  "iot_class": "Cloud Polling",
+  "render_readme": true,
+  "domains": ["sensor"],
+  "country": ["GB"],
+  "icon": "icon.png"
+}
