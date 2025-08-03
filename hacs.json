@@ -1,6 +1,5 @@
 {
   "name": "Grasplet",
   "render_readme": true,
-  "domains": ["sensor"],
   "country": ["GB"]
 }
