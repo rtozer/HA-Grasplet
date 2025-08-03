@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [1.0.3] - 2025-01-01
+
+### Fixed
+- Fixed data usage percentage sensor to correctly calculate percentage from remaining data
+
 ## [1.0.2] - 2025-01-01
 
 ### Added

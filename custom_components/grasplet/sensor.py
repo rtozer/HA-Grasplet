@@ -268,19 +268,23 @@ class GraspletDataUsagePercentageSensor(GraspletSensorBase):
         plan_data = self.plan_data
         if plan_data and "plan" in plan_data and "usage" in plan_data:
             data_limit = plan_data["plan"].get("dataLimit")
-            data_used = plan_data["usage"].get("dataUsed")
+            data_remaining = plan_data["usage"].get("data")
             data_unit = plan_data["usage"].get("dataUnit", "GB")
             
-            if data_limit is not None and data_used is not None:
+            if data_limit is not None and data_remaining is not None:
                 # Normalize both to GB
                 limit_gb = float(data_limit)
-                used_gb = float(data_used)
+                remaining_gb = float(data_remaining)
                 
+                # Normalize remaining data to GB if needed
                 if data_unit.upper() == "MB":
-                    used_gb = used_gb / 1024
+                    remaining_gb = remaining_gb / 1024
                 elif data_unit.upper() == "KB":
-                    used_gb = used_gb / (1024 * 1024)
+                    remaining_gb = remaining_gb / (1024 * 1024)
                 
-                if limit_gb > 0:
+                # Calculate used data
+                used_gb = limit_gb - remaining_gb
+                
+                if limit_gb > 0 and used_gb >= 0:
                     return min(100.0, (used_gb / limit_gb) * 100)
         return None
